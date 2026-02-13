@@ -16,7 +16,7 @@ Automated email notifications
 
 Built with Node.js + Express + MongoDB and designed for real clinic workflow.
 
-⚠️ Usage & Rights Notice
+ Usage & Rights Notice
 
 This project is NOT open-source.
 
@@ -243,6 +243,7 @@ Run:
 npm run dev
 
  API Endpoints
+
  Authentication
 Method	Route	Description
 POST	/api/auth/register	Register & send verification email
@@ -251,6 +252,7 @@ POST	/api/auth/refresh-token	Refresh access token
 POST	/api/auth/logout	Logout
 GET	/api/auth/verify-email/:token	Verify email
 POST	/api/auth/resend-verification	Resend verification
+
  Appointments
 Method	Route	Description
 POST	/api/appointments	Create appointment
@@ -259,10 +261,14 @@ GET	/api/appointments/:userId	Get user appointments
 PUT	/api/appointments/:id	Admin update appointment
 PUT	/api/appointments/reschedule/:id	Reschedule
 DELETE	/api/appointments/:id	Delete appointment
+
+
  Payments (Next Phase)
 Method	Route	Description
 POST	/api/payments	Create payment
 GET	/api/payments/:userId	Get payment history
+
+
  Authentication Flow
 
 User registers
@@ -312,4 +318,5 @@ Copyright © 2026 Adeboye Ajayi
 All rights reserved.
 
 This software is proprietary and provided strictly for portfolio and evaluation purposes only.
+
 
