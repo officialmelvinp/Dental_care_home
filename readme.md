@@ -1,4 +1,4 @@
- Dental Clinic Appointment & Consultation System
+Dental Clinic Appointment & Consultation System
 
 A production-structured backend system for managing:
 
