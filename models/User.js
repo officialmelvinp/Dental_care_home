@@ -19,10 +19,32 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        role: {
-            type: String,
-            enum: ['patient', 'admin'],
-            default: 'patient',
+    
+    gender: {
+    type: String,
+    enum: ["male", "female"],
+    required: true,
+    },
+
+    age: {
+    type: Number,
+    required: true,
+    },
+
+    location: {
+    type: String,
+    required: true,
+    },
+
+    phone: {
+    type: String,
+    required: true,
+    },
+
+    role: {
+        type: String,
+        enum: ['patient', 'admin'],
+        default: 'patient',
         },
         refreshToken: {
             type: String,

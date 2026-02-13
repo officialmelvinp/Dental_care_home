@@ -1,81 +1,195 @@
-## ⚠️ Usage & Rights Notice
+🦷 Dental Clinic Appointment & Consultation System
 
-This project is **NOT open-source**.
+A production-structured backend system for managing:
 
-The source code is publicly visible **for portfolio and evaluation purposes only**.
-You are **NOT permitted** to:
-- Copy or reuse the code
-- Deploy it commercially
-- Modify or resell it
+Patient registration & authentication
 
-If you are interested in using this project or collaborating,
-please contact the author.
+Dental service bookings
+
+Consultation requests
+
+Appointment management
+
+Payment tracking (integration-ready)
+
+Automated email notifications
+
+Built with Node.js + Express + MongoDB and designed for real clinic workflow.
+
+⚠️ Usage & Rights Notice
+
+This project is NOT open-source.
+
+The source code is publicly visible for portfolio and evaluation purposes only.
+
+You are NOT permitted to:
+
+Copy or reuse the code
+
+Deploy it commercially
+
+Modify or resell it
+
+For collaboration or licensing inquiries, contact the author.
+
+🏗 System Overview
+
+This system supports two primary roles:
+
+👤 Patients
+
+Register and verify email
+
+Login securely
+
+Book appointments
+
+Request consultations
+
+Receive automated email confirmations
+
+Track appointment status
 
 
-# Dental Clinic Appointment System
-A full-stack **Dental Clinic Appointment System** allowing patients to **book appointments, manage their bookings, pay for services, and receive email confirmations**.  
-This project uses **Node.js + Express + MongoDB** for the backend and plans to integrate **React/Next.js** for the frontend.
+🛠 Admin
 
----
+View all appointments
 
-## 🏗 Project Idea
+Update appointment details
 
-Goal: A web application where patients can:  
-- View available dental services and appointment slots  
-- Book appointments  
-- Pay for services using Paystack or Flutterwave 
-- Receive email confirmations for their bookings  
+Confirm or complete treatments
 
-The system is designed for **patients** and **administrators**, with role-based access to manage users, appointments, and payments.
+Update payment status (partial / paid)
 
----
+Reschedule appointments
 
-## 🔥 Features (Backend)
+Manage service pricing
 
-### User Authentication
-- User registration & login
-- JWT-based access & refresh tokens
-- Email verification with unique verification links
-- Role-based access: `patient` vs `admin`
-- Password hashing with bcrypt
-- Logout and token invalidation
+Track payment history (integration-ready)
 
-### Appointments
-- Create an appointment
-- View all appointments or appointments by user
-- Update or cancel appointments
-- Email notifications upon booking
 
-### Payments
-- Paystack for single payments (Flutterwave optional)
-- Link payments to appointments
-- Store payment details in MongoDB (future-proofing for billing and history)
+🔥 Current Backend Features
+🔐 Authentication & Authorization
 
-### Utilities
-- Nodemailer for sending verification and appointment emails
-- Environment variables management with dotenv
-- Centralized token generation and authentication middleware
+User registration
 
----
+Email verification via unique token
 
-## ⚙ Tech Stack
+Login with JWT access & refresh tokens
 
-### Backend
-- **Node.js** + **Express.js**  
-- **MongoDB Atlas** + **Mongoose**  
-- **Nodemailer** for emails  
-- **Stripe** for payments  
-- **bcryptjs** for password hashing  
-- **jsonwebtoken (JWT)** for authentication  
-- **dotenv** for environment variables  
+Token refresh system
 
-### Frontend (Planned)
-- **React.js** or **Next.js**  
-- **Axios** for API requests  
-- **Tailwind CSS** or CSS for styling  
-- **React Hook Form** (optional for form handling)  
+Logout with refresh token invalidation
 
----
+Role-based access control (patient, admin)
+
+Password hashing using bcrypt
+
+
+🦷 Appointment System
+Create Appointment
+
+Online bookable services
+
+Consultation-required services
+
+Quantity support (e.g., family bookings)
+
+Dynamic pricing structure:
+
+servicePrice = unit price
+totalAmount = servicePrice × quantity
+
+Consultation Flow
+
+Consultation request creates:
+
+status = pending_consultation
+
+Email sent to:
+
+Patient
+
+Clinic
+
+Appointment Updates (Admin)
+
+Admin can update:
+
+Service price (unit-based)
+
+Quantity
+
+Appointment date
+
+Status (pending, confirmed, completed, etc.)
+
+Payment status (unpaid, partial, paid)
+
+Payment method (online, transfer, walk-in)
+
+
+📧 Smart Email Automation
+
+The system sends contextual emails based on status:
+
+Scenario	Email Sent
+Consultation request	Consultation confirmation
+Appointment booked	Booking confirmation
+Partial payment	Deposit confirmation
+Full payment	Full payment confirmation
+Treatment completed	Completion & feedback request
+Reschedule	Reschedule notification
+
+
+All emails:
+
+Properly formatted
+
+Localized date formatting (Nigeria)
+
+Correct total calculations
+
+Quantity-aware billing
+
+💰 Payment Logic (Integration Ready)
+
+Current system tracks:
+
+paymentStatus: unpaid | partial | paid
+paymentMethod: online | transfer | walk-in
+
+
+Architecture supports:
+
+Paystack integration
+
+Manual transfer confirmation by admin
+
+Future payment history model
+
+Dynamic total calculation
+
+Multi-payment tracking (next phase)
+
+⚙️ Tech Stack
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB Atlas
+
+Mongoose
+
+Nodemailer
+
+JWT (jsonwebtoken)
+
+bcryptjs
+
+dotenv
 
 ## 📂 Project Structure
 
@@ -102,102 +216,100 @@ dental_backend/
 └─ generateToken.js
 
 
----
-
-## 📦 Installation
-
-1. Clone the repo:
-
-```bash
+📦 Installation
 git clone https://github.com/officialmelvinp/Dental_care_home.git
-cd dental_care_home
+cd Dental_care_home
+
+npm install
+
+🔐 Environment Variables
+
+Create a .env file:
+
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 
-JWT_SECRET=your_super_secret_jwt_key
-JWT_REFRESH_SECRET=your_super_secret_refresh_token_key
+JWT_SECRET=your_jwt_secret
+JWT_REFRESH_SECRET=your_refresh_secret
 
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
 EMAIL_FROM="Dental Clinic <noreply@dentalclinic.com>"
 
-PAYSTACK_SECRET_KEY=your_stripe_secret_key
+PAYSTACK_SECRET_KEY=your_paystack_secret
+
+Run:
 
 npm run dev
 
-
-📖 API Endpoints (Backend)
-Authentication
+📖 API Endpoints
+🔐 Authentication
 Method	Route	Description
-POST	/api/auth/register	Register user & send verification email
-POST	/api/auth/login	Login and receive JWT access & refresh tokens
-POST	/api/auth/refresh-token	Get a new access token using refresh token
-POST	/api/auth/logout	Logout user (invalidate refresh token)
-GET	/api/auth/verify-email/:token	Verify user email
-POST	/api/auth/resend-verification	Resend email verification
-Appointments
+POST	/api/auth/register	Register & send verification email
+POST	/api/auth/login	Login
+POST	/api/auth/refresh-token	Refresh access token
+POST	/api/auth/logout	Logout
+GET	/api/auth/verify-email/:token	Verify email
+POST	/api/auth/resend-verification	Resend verification
+🦷 Appointments
 Method	Route	Description
-POST	/api/appointments	Create a new appointment
-GET	/api/appointments	Get all appointments (admin)
-GET	/api/appointments/:userId	Get appointments by user
-PUT	/api/appointments/:id	Update an appointment
-DELETE	/api/appointments/:id	Cancel an appointment
-Payments
+POST	/api/appointments	Create appointment
+GET	/api/appointments	Get all (admin)
+GET	/api/appointments/:userId	Get user appointments
+PUT	/api/appointments/:id	Admin update appointment
+PUT	/api/appointments/reschedule/:id	Reschedule
+DELETE	/api/appointments/:id	Delete appointment
+💳 Payments (Next Phase)
 Method	Route	Description
-POST	/api/payments	Make a payment for an appointment
-GET	/api/payments/:userId	Get payments for a user
-🔐 Authentication Flow
+POST	/api/payments	Create payment
+GET	/api/payments/:userId	Get payment history
+🔄 Authentication Flow
 
-User registers → receives verification email
+User registers
 
-User clicks link → email verified
+Email verification required
 
-User logs in → receives JWT access token & refresh token
+Login returns access + refresh tokens
 
-Access token expires → refresh token used to obtain new access token
+Protected routes require access token
 
-User can logout → refresh token invalidated
+Refresh token issues new access token
 
-💡 Notes & Next Steps
+Logout invalidates refresh token
 
-Frontend is still under development using React/Next.js.
 
-Email sending requires valid credentials and app password for Gmail.
+🚀 Upcoming Enhancements
 
-Payment integration with  is partially implemented (single payments).
+Paystack integration (partial & full payments)
 
-Future:
+Dedicated Payment model
 
-Add recurring appointments
+Payment history endpoint
 
-Improve appointment availability management
+Cron job reminders (24hr before appointment)
 
-Add comprehensive frontend dashboards
+Admin dashboard metrics
 
-📫 Author
+Review & rating system
 
-Adeboye Ajayi – Backend Developer | Full-Stack Developer | Python & Django Backend Engineer | REST APIs, Databases & Authentication | Node.js, Express & MongoDB | AI & NLP Engineering (In Progress)
+Availability scheduling logic
+
+Multi-branch clinic support
+
+👨‍💻 Author
+
+Adeboye Ajayi
+Backend Developer | Full-Stack Developer | REST API Engineer
 
 GitHub: https://github.com/officialmelvinp
 
 LinkedIn: https://linkedin.com/in/adeboye-ajayi
 
 
-✅ License
+📜 License
 
-Copyright (c) 2026 Adeboye Ajayi
-
+Copyright © 2026 Adeboye Ajayi
 All rights reserved.
 
-This software and associated documentation files (the "Software") 
-are the proprietary property of Adeboye Ajayi.
-
-No part of this software may be copied, modified, merged, published,
-distributed, sublicensed, or sold without explicit written permission
-from the author.
-
-This repository is provided strictly for portfolio and evaluation
-purposes only.
+This software is proprietary and provided strictly for portfolio and evaluation purposes only.
 

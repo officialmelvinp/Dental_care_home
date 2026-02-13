@@ -8,9 +8,9 @@ const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 
 const registerUser = async (req, res) => {
-    const { fullName, email, password, role } = req.body;
+    const { fullName, email, password, age, location, gender, phone, role } = req.body;
 
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !age || !location || !gender || !phone) {
         return res.status(400).json({ message: 'Please fill all fields' });
     }
 
@@ -23,6 +23,10 @@ const registerUser = async (req, res) => {
         fullName,
         email,
         password,
+        age,
+        location,
+        gender,
+        phone,
         role: role || 'patient',
     });
 
@@ -41,16 +45,24 @@ const registerUser = async (req, res) => {
                      <p>Click <a href="${verifyUrl}">here</a> to verify your email.</p>`;
 
     try {
-        await sendEmail(user.email, 'Verify your email', message);
-    } catch (error) {
-        console.error('Error sending email:', error.message);
-    }
+    await sendEmail(user.email, 'Verify your email', message);
+} catch (error) {
+    console.error('Error sending email:', error.message);
+    return res.status(500).json({
+        message: "User created but email failed to send"
+    });
+}
+
 
     res.status(201).json({
         _id: user._id,
         fullName: user.fullName,
         email: user.email,
         role: user.role,
+        age: user.age,
+        gender: user.gender,
+        phone: user.phone,
+        location: user.location,
         token: accessToken,
         refreshToken,
         message: 'Verification email sent!',
@@ -107,6 +119,10 @@ const authUser = async (req, res) => {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
+            age: user.age,
+            gender: user.gender,
+            phone: user.phone,
+            location: user.location,
             role: user.role,
             token: accessToken,
             refreshToken,
@@ -149,16 +165,24 @@ const updateMe = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, age, gender, phone, location } = req.body;
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (password) user.password = password;
+    if (age) user.age = age;
+    if (gender) user.gender = gender;
+    if (phone) user.phone = phone;
+    if (location) user.location = location;
 
     const updatedUser = await user.save();
     res.json({
         _id: updatedUser._id,
         fullName: updatedUser.fullName,
         email: updatedUser.email,
+        age: updatedUser.age,
+        gender: updatedUser.gender,
+        location: updatedUser.location,
+        phone: updatedUser.phone,
         role: updatedUser.role,
         token: generateToken(updatedUser._id),
     });
@@ -180,6 +204,10 @@ const updateUserRole = async (req, res) => {
             _id: updatedUser._id,
             fullName: updatedUser.fullName,
             email: updatedUser.email,
+            age: updatedUser.age,
+            gender: updatedUser.gender,
+            location: updatedUser.location,
+            phone: updatedUser.phone,
             role: updatedUser.role,
         });
     } catch (error) {
