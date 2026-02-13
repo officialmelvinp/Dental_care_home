@@ -284,7 +284,7 @@ Refresh token issues new access token
 Logout invalidates refresh token
 
 
- Upcoming Enhancements
+Upcoming Enhancements
 
 Paystack integration (partial & full payments)
 
