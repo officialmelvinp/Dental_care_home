@@ -1,7 +1,10 @@
- require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const serviceRoutes = require("./routes/serviceRoutes");
+const appointmentRoutes = require("./routes/appointmentRoutes");
+
 
 const app = express();
 
@@ -15,6 +18,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/appointments", appointmentRoutes);
+
 
 // Start server after DB connects
 const PORT = process.env.PORT || 5000;
