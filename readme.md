@@ -1,4 +1,4 @@
-🦷 Dental Clinic Appointment & Consultation System
+ Dental Clinic Appointment & Consultation System
 
 A production-structured backend system for managing:
 
@@ -32,11 +32,11 @@ Modify or resell it
 
 For collaboration or licensing inquiries, contact the author.
 
-🏗 System Overview
+ System Overview
 
 This system supports two primary roles:
 
-👤 Patients
+ Patients
 
 Register and verify email
 
@@ -51,7 +51,7 @@ Receive automated email confirmations
 Track appointment status
 
 
-🛠 Admin
+ Admin
 
 View all appointments
 
@@ -68,8 +68,8 @@ Manage service pricing
 Track payment history (integration-ready)
 
 
-🔥 Current Backend Features
-🔐 Authentication & Authorization
+ Current Backend Features
+ Authentication & Authorization
 
 User registration
 
@@ -86,7 +86,7 @@ Role-based access control (patient, admin)
 Password hashing using bcrypt
 
 
-🦷 Appointment System
+ Appointment System
 Create Appointment
 
 Online bookable services
@@ -129,7 +129,7 @@ Payment status (unpaid, partial, paid)
 Payment method (online, transfer, walk-in)
 
 
-📧 Smart Email Automation
+ Smart Email Automation
 
 The system sends contextual emails based on status:
 
@@ -152,7 +152,7 @@ Correct total calculations
 
 Quantity-aware billing
 
-💰 Payment Logic (Integration Ready)
+ Payment Logic (Integration Ready)
 
 Current system tracks:
 
@@ -172,7 +172,7 @@ Dynamic total calculation
 
 Multi-payment tracking (next phase)
 
-⚙️ Tech Stack
+ Tech Stack
 Backend
 
 Node.js
@@ -191,7 +191,7 @@ bcryptjs
 
 dotenv
 
-## 📂 Project Structure
+##  Project Structure
 
 dental_backend/
 │
@@ -216,13 +216,13 @@ dental_backend/
 └─ generateToken.js
 
 
-📦 Installation
+ Installation
 git clone https://github.com/officialmelvinp/Dental_care_home.git
 cd Dental_care_home
 
 npm install
 
-🔐 Environment Variables
+ Environment Variables
 
 Create a .env file:
 
@@ -242,8 +242,8 @@ Run:
 
 npm run dev
 
-📖 API Endpoints
-🔐 Authentication
+ API Endpoints
+ Authentication
 Method	Route	Description
 POST	/api/auth/register	Register & send verification email
 POST	/api/auth/login	Login
@@ -251,7 +251,7 @@ POST	/api/auth/refresh-token	Refresh access token
 POST	/api/auth/logout	Logout
 GET	/api/auth/verify-email/:token	Verify email
 POST	/api/auth/resend-verification	Resend verification
-🦷 Appointments
+ Appointments
 Method	Route	Description
 POST	/api/appointments	Create appointment
 GET	/api/appointments	Get all (admin)
@@ -259,11 +259,11 @@ GET	/api/appointments/:userId	Get user appointments
 PUT	/api/appointments/:id	Admin update appointment
 PUT	/api/appointments/reschedule/:id	Reschedule
 DELETE	/api/appointments/:id	Delete appointment
-💳 Payments (Next Phase)
+ Payments (Next Phase)
 Method	Route	Description
 POST	/api/payments	Create payment
 GET	/api/payments/:userId	Get payment history
-🔄 Authentication Flow
+ Authentication Flow
 
 User registers
 
@@ -278,7 +278,7 @@ Refresh token issues new access token
 Logout invalidates refresh token
 
 
-🚀 Upcoming Enhancements
+ Upcoming Enhancements
 
 Paystack integration (partial & full payments)
 
@@ -296,7 +296,7 @@ Availability scheduling logic
 
 Multi-branch clinic support
 
-👨‍💻 Author
+ Author
 
 Adeboye Ajayi
 Backend Developer | Full-Stack Developer | REST API Engineer
@@ -306,7 +306,7 @@ GitHub: https://github.com/officialmelvinp
 LinkedIn: https://linkedin.com/in/adeboye-ajayi
 
 
-📜 License
+ License
 
 Copyright © 2026 Adeboye Ajayi
 All rights reserved.
