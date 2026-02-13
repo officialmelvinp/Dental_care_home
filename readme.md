@@ -1,4 +1,4 @@
- Dental Clinic Appointment & Consultation System
+Dental Clinic Appointment & Consultation System
 
 A production-structured backend system for managing:
 
@@ -284,7 +284,7 @@ Refresh token issues new access token
 Logout invalidates refresh token
 
 
- Upcoming Enhancements
+Upcoming Enhancements
 
 Paystack integration (partial & full payments)
 
