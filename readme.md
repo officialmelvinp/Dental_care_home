@@ -1,178 +1,134 @@
-Dental Clinic Appointment & Consultation System
+🦷 Dental Clinic Appointment & Payment System (MERN Backend)
 
-A production-structured backend system for managing:
+A production-structured healthcare backend system designed to manage appointment workflows, consultation processes, and transactional payment operations for dental clinics.
 
-Patient registration & authentication
+Built with Node.js, Express, and MongoDB following scalable REST architecture principles.
 
-Dental service bookings
+🏗 System Architecture Overview
 
-Consultation requests
+This system models a real-world clinic workflow including:
 
-Appointment management
+Patient onboarding & verification
 
-Payment tracking (integration-ready)
+Appointment booking (direct & consultation-based)
 
-Automated email notifications
+Role-based access control (Patient / Admin)
 
-Built with Node.js + Express + MongoDB and designed for real clinic workflow.
+Deposit-based and partial payment tracking
 
- Usage & Rights Notice
+Transaction-safe financial logic
 
-This project is NOT open-source.
+Automated contextual email notifications
 
-The source code is publicly visible for portfolio and evaluation purposes only.
+The architecture is designed to support high-volume transactional operations and third-party payment gateway integration via webhook verification.
 
-You are NOT permitted to:
+👥 Role-Based Access
+🧑‍⚕️ Patient
 
-Copy or reuse the code
+Register & verify email
 
-Deploy it commercially
+Secure login (JWT access & refresh tokens)
 
-Modify or resell it
+Book appointment (direct or consultation)
 
-For collaboration or licensing inquiries, contact the author.
+Track appointment & payment status
 
- System Overview
+Receive automated email notifications
 
-This system supports two primary roles:
+🏥 Admin
 
- Patients
+Manage appointments
 
-Register and verify email
+Set service pricing dynamically
 
-Login securely
+Update quantities & schedule
 
-Book appointments
+Record manual payments (transfer / walk-in)
 
-Request consultations
+View payment summaries & breakdown
 
-Receive automated email confirmations
+Enforce financial integrity safeguards
 
-Track appointment status
+💳 Transactional Payment Architecture
 
+The payment system is designed to support:
 
- Admin
+Deposit-based payments (e.g., 50%)
 
-View all appointments
+Partial payments
 
-Update appointment details
+Full payments
 
-Confirm or complete treatments
+Multi-payment tracking per appointment
 
-Update payment status (partial / paid)
+Prevention of overpayments
 
-Reschedule appointments
+Prevention of duplicate full payments
 
-Manage service pricing
+Payment status synchronization with appointment records
 
-Track payment history (integration-ready)
+Current Implementation
 
+Dedicated Payment model
 
- Current Backend Features
- Authentication & Authorization
+Payment status: pending | successful | failed
 
-User registration
+Appointment paymentStatus: unpaid | partial | paid
 
-Email verification via unique token
+Admin manual recording flow
 
-Login with JWT access & refresh tokens
+Integration-ready Paystack initialization endpoint
 
-Token refresh system
+Webhook verification architecture (final phase integration)
 
-Logout with refresh token invalidation
+Financial Safeguards Implemented
 
-Role-based access control (patient, admin)
+Blocks payment on cancelled appointments
 
-Password hashing using bcrypt
+Prevents payment beyond remaining balance
 
+Prevents duplicate full payments
 
- Appointment System
-Create Appointment
+Reconciles total paid vs service total dynamically
 
-Online bookable services
+Auto-updates paymentStatus on every transaction
 
-Consultation-required services
+📧 Automated Email System
 
-Quantity support (e.g., family bookings)
+Context-based notifications:
 
-Dynamic pricing structure:
-
-servicePrice = unit price
-totalAmount = servicePrice × quantity
-
-Consultation Flow
-
-Consultation request creates:
-
-status = pending_consultation
-
-Email sent to:
-
-Patient
-
-Clinic
-
-Appointment Updates (Admin)
-
-Admin can update:
-
-Service price (unit-based)
-
-Quantity
-
-Appointment date
-
-Status (pending, confirmed, completed, etc.)
-
-Payment status (unpaid, partial, paid)
-
-Payment method (online, transfer, walk-in)
-
-
- Smart Email Automation
-
-The system sends contextual emails based on status:
-
-Scenario	Email Sent
-Consultation request	Consultation confirmation
-Appointment booked	Booking confirmation
+Scenario	Email Trigger
+Consultation request	Confirmation to patient & clinic
+Appointment booking	Booking confirmation
 Partial payment	Deposit confirmation
-Full payment	Full payment confirmation
-Treatment completed	Completion & feedback request
-Reschedule	Reschedule notification
+Full payment	Full receipt confirmation
+Appointment completed	Feedback request
+Reschedule	Updated appointment notice
 
+All emails are:
 
-All emails:
+Dynamically calculated (quantity-aware)
 
 Properly formatted
 
-Localized date formatting (Nigeria)
+Localized for Nigerian time zone
 
-Correct total calculations
+🔐 Authentication & Security
 
-Quantity-aware billing
+JWT access & refresh token system
 
- Payment Logic (Integration Ready)
+Refresh token invalidation on logout
 
-Current system tracks:
+Role-based route protection
 
-paymentStatus: unpaid | partial | paid
-paymentMethod: online | transfer | walk-in
+Password hashing via bcrypt
 
+Protected admin-only endpoints
 
-Architecture supports:
+Ownership validation (patient can only access their own records)
 
-Paystack integration
+🧱 Tech Stack
 
-Manual transfer confirmation by admin
-
-Future payment history model
-
-Dynamic total calculation
-
-Multi-payment tracking (next phase)
-
- Tech Stack
 Backend
 
 Node.js
@@ -183,49 +139,51 @@ MongoDB Atlas
 
 Mongoose
 
-Nodemailer
+Authentication
 
-JWT (jsonwebtoken)
+JWT
 
 bcryptjs
 
+Payments
+
+Paystack (initialization & webhook-ready)
+
+Nodemailer (transaction emails)
+
+Environment
+
 dotenv
 
-##  Project Structure
-
+📂 Project Structure
 dental_backend/
-│
-├─ server.js # Entry point
+├─ server.js
 ├─ config/
-│ └─ db.js # MongoDB connection
-├─ models/ # Mongoose schemas
-│ └─ User.js
-│ └─ Appointment.js
-│ └─ Payment.js
-├─ routes/ # API routes
-│ └─ authRoutes.js
-│ └─ appointmentRoutes.js
-│ └─ paymentRoutes.js
-├─ controllers/ # Functions handling route requests
-│ └─ authController.js
-│ └─ appointmentController.js
-│ └─ paymentController.js
-├─ middleware/ # Middleware functions
-│ └─ authMiddleware.js
-└─ utils/ # Utility functions (email, tokens)
-└─ generateToken.js
+│  └─ db.js
+├─ models/
+│  ├─ User.js
+│  ├─ Appointment.js
+│  └─ Payment.js
+├─ routes/
+│  ├─ authRoutes.js
+│  ├─ appointmentRoutes.js
+│  └─ paymentRoutes.js
+├─ controllers/
+│  ├─ authController.js
+│  ├─ appointmentController.js
+│  └─ paymentController.js
+├─ middleware/
+│  └─ authMiddleware.js
+└─ utils/
+   ├─ sendEmail.js
+   └─ generateToken.js
 
-
- Installation
+🚀 Installation
 git clone https://github.com/officialmelvinp/Dental_care_home.git
 cd Dental_care_home
-
 npm install
 
- Environment Variables
-
-Create a .env file:
-
+🔧 Environment Variables
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 
@@ -238,85 +196,31 @@ EMAIL_FROM="Dental Clinic <noreply@dentalclinic.com>"
 
 PAYSTACK_SECRET_KEY=your_paystack_secret
 
-Run:
+🔮 Upcoming Enhancements
 
-npm run dev
+Full Paystack webhook verification completion
 
- API Endpoints
+Payment analytics dashboard
 
- Authentication
-Method	Route	Description
-POST	/api/auth/register	Register & send verification email
-POST	/api/auth/login	Login
-POST	/api/auth/refresh-token	Refresh access token
-POST	/api/auth/logout	Logout
-GET	/api/auth/verify-email/:token	Verify email
-POST	/api/auth/resend-verification	Resend verification
-
- Appointments
-Method	Route	Description
-POST	/api/appointments	Create appointment
-GET	/api/appointments	Get all (admin)
-GET	/api/appointments/:userId	Get user appointments
-PUT	/api/appointments/:id	Admin update appointment
-PUT	/api/appointments/reschedule/:id	Reschedule
-DELETE	/api/appointments/:id	Delete appointment
-
-
- Payments (Next Phase)
-Method	Route	Description
-POST	/api/payments	Create payment
-GET	/api/payments/:userId	Get payment history
-
-
- Authentication Flow
-
-User registers
-
-Email verification required
-
-Login returns access + refresh tokens
-
-Protected routes require access token
-
-Refresh token issues new access token
-
-Logout invalidates refresh token
-
-
-Upcoming Enhancements
-
-Paystack integration (partial & full payments)
-
-Dedicated Payment model
-
-Payment history endpoint
-
-Cron job reminders (24hr before appointment)
-
-Admin dashboard metrics
+Automated appointment reminders (cron)
 
 Review & rating system
 
-Availability scheduling logic
+Availability scheduling engine
 
 Multi-branch clinic support
 
- Author
+👨‍💻 Author
 
 Adeboye Ajayi
-Backend Developer | Full-Stack Developer | REST API Engineer
+Backend Engineer | MERN Developer
 
 GitHub: https://github.com/officialmelvinp
 
 LinkedIn: https://linkedin.com/in/adeboye-ajayi
 
-
- License
+⚖️ License
 
 Copyright © 2026 Adeboye Ajayi
 All rights reserved.
-
-This software is proprietary and provided strictly for portfolio and evaluation purposes only.
-
-
+This project is proprietary and provided for evaluation and portfolio purposes only.
