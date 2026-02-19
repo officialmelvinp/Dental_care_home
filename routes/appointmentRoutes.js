@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const appointmentController = require("../controllers/appointmentController");
 
-
 const {
   createAppointment,
   getAllAppointments,
@@ -11,7 +10,6 @@ const {
 } = require("../controllers/appointmentController");
 
 const { protect, admin } = require("../middleware/authMiddleware");
-
 
 // Admin update appointment
 router.put(
@@ -26,7 +24,11 @@ router.post("/", protect, createAppointment);
 
 // Admin only
 router.get("/", protect, admin, getAllAppointments);
-router.put("/:id", protect, admin, rescheduleAppointment);
-router.delete("/:id", protect, admin, deleteAppointment);
+
+// Reschedule - both admin & patient can hit this, but only admin can actually reschedule
+router.put("/:id/reschedule", protect, rescheduleAppointment);
+
+// Delete - both admin & patient can hit this, but only admin can actually delete
+router.delete("/:id/delete", protect, deleteAppointment);
 
 module.exports = router;
