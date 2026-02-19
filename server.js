@@ -4,7 +4,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require("./routes/serviceRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
-
+const paymentRoutes = require("./routes/paymentRoutes");
+const startReminderJob = require("./jobs/reminderJob");
 
 const app = express();
 
@@ -12,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Test route
+// Routes
 app.get('/', (req, res) => {
   res.send('Hello Dental API!');
 });
@@ -20,7 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/appointments", appointmentRoutes);
-
+app.use("/api/payments", paymentRoutes);
 
 // Start server after DB connects
 const PORT = process.env.PORT || 5000;
@@ -29,5 +30,5 @@ connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
+  startReminderJob();
 });
-
