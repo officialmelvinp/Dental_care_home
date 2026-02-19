@@ -109,7 +109,7 @@ All emails are:
 
 Dynamically calculated (quantity-aware)
 
-Properly formatted
+Localized Nigeria date formatting
 
 Localized for Nigerian time zone
 
@@ -215,9 +215,11 @@ Multi-branch clinic support
 Adeboye Ajayi
 Backend Engineer | MERN Developer
 
-GitHub: https://github.com/officialmelvinp
+GitHub:
+https://github.com/officialmelvinp
 
-LinkedIn: https://linkedin.com/in/adeboye-ajayi
+LinkedIn:
+https://linkedin.com/in/adeboye-ajayi
 
 ⚖️ License
 
