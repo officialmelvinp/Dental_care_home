@@ -20,10 +20,10 @@ const serviceSchema = new mongoose.Schema(
       default: "per_session",
     },
 
-  requiresConsultation: {
-  type: Boolean,
-  default: false,
-},
+    requiresConsultation: {
+      type: Boolean,
+      default: false,
+    },
 
     isOnlineBookable: {
       type: Boolean,
@@ -39,7 +39,7 @@ const serviceSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Service", serviceSchema);

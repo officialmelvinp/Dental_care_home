@@ -1,12 +1,10 @@
 const Service = require("../models/Service");
 
-
-
 exports.createService = async (req, res) => {
   try {
     const { name, price, unit, requiresConsultation } = req.body;
 
-    if (!name || price === undefined){
+    if (!name || price === undefined) {
       return res.status(400).json({
         message: "Name and price are required",
       });
@@ -30,7 +28,6 @@ exports.createService = async (req, res) => {
     });
   }
 };
-
 
 exports.updateService = async (req, res) => {
   try {
@@ -86,7 +83,9 @@ exports.deleteService = async (req, res) => {
 
 exports.getAllServices = async (req, res) => {
   try {
-    const services = await Service.find({ isActive: true }).sort({ createdAt: -1 });
+    const services = await Service.find({ isActive: true }).sort({
+      createdAt: -1,
+    });
 
     res.status(200).json({
       count: services.length,
@@ -118,4 +117,3 @@ exports.getServiceById = async (req, res) => {
     });
   }
 };
-
