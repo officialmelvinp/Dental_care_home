@@ -42,6 +42,7 @@ const appointmentSchema = new mongoose.Schema(
       enum: [
         "pending",
         "pending_consultation",
+        "awaiting_payment",
         "confirmed",
         "completed",
         "cancelled",
@@ -67,8 +68,13 @@ const appointmentSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
+    reminderSent: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Appointment", appointmentSchema);
