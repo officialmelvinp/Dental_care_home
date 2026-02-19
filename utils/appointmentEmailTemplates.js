@@ -8,7 +8,6 @@ const formatDate = (date) => {
   });
 };
 
-
 exports.bookingEmailTemplate = (patientName, serviceName, date, price) => {
   return `
     <h2>Appointment Booking Confirmation</h2>
@@ -16,6 +15,7 @@ exports.bookingEmailTemplate = (patientName, serviceName, date, price) => {
     <p>Your appointment for <strong>${serviceName}</strong> has been booked.</p>
     <p><strong>Date:</strong> ${formatDate(date)}</p>
     <p><strong>Total Price:</strong> ₦${price.toLocaleString()}</p>
+    <p>Please proceed to make 50% Deposit.</p>
     <p>Thank you for choosing our clinic.</p>
   `;
 };
@@ -46,7 +46,7 @@ exports.partialPaymentEmailTemplate = (
   paidAmount,
   remainingAmount,
   totalAmount,
-  appointmentDate
+  appointmentDate,
 ) => {
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-NG", {
@@ -73,12 +73,11 @@ exports.partialPaymentEmailTemplate = (
   `;
 };
 
-
 exports.fullPaymentEmailTemplate = (
   fullName,
   serviceName,
   totalAmount,
-  appointmentDate
+  appointmentDate,
 ) => {
   const formatDate = (date) =>
     new Date(date).toLocaleDateString("en-NG", {
@@ -99,7 +98,6 @@ exports.fullPaymentEmailTemplate = (
   `;
 };
 
-
 exports.reminderEmailTemplate = (patientName, serviceName, date) => {
   return `
     <h2>Appointment Reminder</h2>
@@ -112,11 +110,10 @@ exports.reminderEmailTemplate = (patientName, serviceName, date) => {
   `;
 };
 
-
 exports.completedTreatmentEmailTemplate = (
   fullName,
   serviceName,
-  totalAmount
+  totalAmount,
 ) => {
   return `
     <h2>Treatment Completed</h2>
@@ -132,4 +129,3 @@ exports.completedTreatmentEmailTemplate = (
     <p>We would appreciate your feedback or rating.</p>
   `;
 };
-
